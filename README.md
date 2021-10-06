@@ -20,6 +20,7 @@ SniPy is completely dependent on environmental variables for configuration, or y
 `python Server.py --list-env` gives a list of available configuration variables.
 
 ## Todo
+- [ ] tests
 - [ ] completing readme document docker
 
 
