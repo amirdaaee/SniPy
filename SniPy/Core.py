@@ -129,6 +129,10 @@ class SniServerHTTPS(SniServer):
     port = 443
 
     async def extract_info(self, packet):
-        info = dpkt.ssl.TLS(packet)
-        host = dpkt.ssl.TLSHandshake(info.records[0].data).data.extensions[0][1][5:]
-        self.connection_info['server_name'] = host.decode('ascii')
+        try:
+            info = dpkt.ssl.TLS(packet)
+            host = {x: y for x, y in dpkt.ssl.TLSHandshake(info.records[0].data).data.extensions}[0][5:]
+            self.connection_info['server_name'] = host.decode('ascii')
+            assert host
+        except Exception as e:
+            raise e
