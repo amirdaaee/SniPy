@@ -1,9 +1,9 @@
+import atexit
 import os.path
 import pickle
 from ipaddress import IPv4Address
 from typing import Optional
 
-import atexit
 from pydantic import BaseSettings, conint, Field, validator
 
 from SniPy.Logging import logger
@@ -15,6 +15,7 @@ port_type = conint(ge=0, le=65353)
 class BaseSettingType(BaseSettings):
     local_ip: IPv4Address = Field(title='local ip to bind', default='127.0.0.1')
     workers: int = Field(title='number of workers', default=1)
+    pipe_chunk: int = Field(title='chunk size for socket packet relay', default=2 ** 14)
     proxy: bool = Field(title='use socks5 to connect to the remote host', default=False)
     proxy_host: Optional[str] = Field(title='ip address of the socks5 proxy server', default=None)
     proxy_port: Optional[port_type] = Field(title='port of the socks5 proxy server', default=None)

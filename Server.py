@@ -55,7 +55,7 @@ class HelpPrinter:
 
 def main():
     def _clean_exit():
-        logger.info('server shutdown')
+        logger.warning('server shutdown')
 
     atexit.register(_clean_exit)
     SniPy.Config.Configuration.load()
